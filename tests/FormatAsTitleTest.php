@@ -45,7 +45,8 @@ class FormatAsTitleTest extends TestCase
         $this->assertEmpty(formatAsTitle(' '));
     }
 
-    public function testWhiteSpace(){
+    public function testWhiteSpace()
+    {
         $this->assertSame('Beautiful Code, The', formatAsTitle('the   beautiful code', true));
         $this->assertSame('Beautiful  Code, The', formatAsTitle('Beautiful  Code, The', false));
     }
