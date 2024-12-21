@@ -14,5 +14,9 @@
             "email": "christianberkman@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "files": ["src/book-format.php"]
+    }
+
 }
