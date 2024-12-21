@@ -1,110 +1,87 @@
 <?php
-
 /**
- * Format helper
+ * christianberkman/book-format
+ * (C) Christian Berkman 2024
+ * MIT License
  */
 
-/**
- * Strip tags, remove tabs and newlines
- */
-if (! function_exists('sanitizeString')) {
-    function sanitizeString(?string $value): ?string
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        // Remove forbidden characters
-        $output = preg_replace('/[\r\n\t]+/m', '', $value);
-
-        $output = strip_tags($output);
-
-        return trim($output);
-    }
-}
-
-/**
- * Move articles the, a and an to the end of the string
- * e.g. 'The bean tree' --> 'Bean tree, the'
- */
-if (! function_exists('moveArticle')) {
-    function moveArticle(?string $value): ?string
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        $output = null;
-
-        // Move the, a and and from beginning to end of title
-        $pattern = '/^(The|the|A|a|An|an)\s(.*)/';
-        $match   = preg_match($pattern, $value, $matches);
-        if ($match) {
-            $output = ucfirst($matches[2]) . ', ' . ucfirst($matches[1]);
-        }
-
-        $output = ucfirst($output);
-
-        return trim($output);
-    }
-}
-
-/**
- * Performs sanitizeString and moveArticle
- */
 if (! function_exists('formatAsTitle')) {
-    function formatAsTitle(?string $value): ?string
+    /**
+     * Format string as title
+     * e.g. "The Beautiful code" --> "Beautiful Code, The"
+     *
+     * @param string|null $value
+     * @param array<string>|null $articles Array of articles
+     * @return string|null
+     */
+    function formatAsTitle(?string $value, ?array $articles = ['a', 'an', 'the'], $makeSingleSpaces = true): ?string
     {
         if ($value === null) {
             return null;
         }
 
-        $title = sanitizeString($value);
+        $output = trim($value);
 
-        return moveArticle($title);
+        // Replace all double whitespace characters with a single space
+        if($makeSingleSpaces){
+            $output = preg_replace('/(\s)+/', ' ', $output);
+        }
+
+        // Move the article to the end of the string
+        $articlePattern = implode('|', $articles);
+        $pattern = "/^({$articlePattern})\s(.*)/i";
+        $match   = preg_match($pattern, $output, $matches);
+        if ($match) {
+            $output = ucwords($matches[2]) . ', ' . ucfirst($matches[1]);
+        } else {
+            $output = ucwords($output);
+        }
+
+        return $output;
     }
 }
 
-/**
- * Format as author
- * Examples:
- *    W H Shakespeare -> Shakespeare, W.H.
- *    Shakespeare W.H. -> Shakespeare, W.H.
- *    Shakespeare W H -> Shakespear, W.H.
- *    e.t.c.
- */
 if (! function_exists('formatAsAuthor')) {
+    /**
+     * * Format as author
+     * Examples:
+     *    W H Shakespeare -> Shakespeare, W.H.
+     *    Shakespeare W.H. -> Shakespeare, W.H.
+     *    Shakespeare W H -> Shakespear, W.H.
+     *    e.t.c.
+     *
+     * @param string|null $value
+     * @return string|null
+     */
     function formatAsAuthor(?string $value): ?string
     {
         if ($value === null) {
             return null;
         }
 
-        // Sanitize
-        $author = sanitizeString($value);
+        $output = trim($value);
 
         // Remove double spaces
-        $author = preg_replace('/(\s)+/', ' ', $author);
+        $output = preg_replace('/(\s)+/', ' ', $output);
 
         // Add space after comma
-        $author = preg_replace('/,([a-zA-Z])/', ', $1', $author);
+        $output = preg_replace('/,([a-zA-Z])/', ', $1', $output);
 
         // Capitalize first in every word
-        $author = ucwords($author, ' -/');
+        $output = ucwords($output, ' -/');
 
         // Make initials
-        $author = preg_replace(('/\b([A-Z])\b\.?/'), '$1.', $author);
+        $output = preg_replace(('/\b([A-Z])\b\.?/'), '$1.', $output);
 
         // Move initials behind surname
-        $author = preg_replace('/^(([A-Z]\. )+)(.*)/', '$3, $1', $author);
+        $output = preg_replace('/^(([A-Z]\. )+)(.*)/', '$3, $1', $output);
 
         // Add comma after surname
-        $author = preg_replace('/( ?([A-Z]\. ?)+)$/', ',$1', $author);
+        $output = preg_replace('/( ?([A-Z]\. ?)+)$/', ',$1', $output);
 
         // Remove double comma
-        $author = preg_replace('/,,/', ',', $author);
+        $output = preg_replace('/,,/', ',', $output);
 
-        // Trim
-        return trim($author);
+        return trim($output);
     }
 }
