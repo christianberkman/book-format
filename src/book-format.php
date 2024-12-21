@@ -62,17 +62,18 @@ if (! function_exists('formatAsAuthor')) {
 
         $output = trim($value);
 
-        // Remove double spaces
-        $output = preg_replace('/(\s)+/', ' ', $output);
-
+        
         // Add space after comma
         $output = preg_replace('/,([a-zA-Z])/', ', $1', $output);
-
+        
         // Capitalize first in every word
         $output = ucwords($output, ' -/');
-
+        
         // Make initials
-        $output = preg_replace(('/\b([A-Z])\b\.?/'), '$1.', $output);
+        $output = preg_replace(('/\b([A-Z])\b\.?/'), '$1. ', $output);
+        
+        // Remove double spaces
+        $output = preg_replace('/(\s)+/', ' ', $output);
 
         // Move initials behind surname
         $output = preg_replace('/^(([A-Z]\. )+)(.*)/', '$3, $1', $output);
