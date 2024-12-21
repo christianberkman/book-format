@@ -15,7 +15,7 @@ if (! function_exists('formatAsTitle')) {
      * @param array<string>|null $articles Array of articles
      * @return string|null
      */
-    function formatAsTitle(?string $value, bool $makeSingleSpaces = true, ?array $articles = ['a', 'an', 'the']): ?string
+    function sortableTitle(?string $value, bool $makeSingleSpaces = true, ?array $articles = ['a', 'an', 'the']): ?string
     {
         if ($value === null) {
             return null;
@@ -54,7 +54,7 @@ if (! function_exists('formatAsAuthor')) {
      * @param string|null $value
      * @return string|null
      */
-    function formatAsAuthor(?string $value): ?string
+    function sortableAuthor(?string $value): ?string
     {
         if ($value === null) {
             return null;
