@@ -1,4 +1,5 @@
 <?php
+
 /**
  * christianberkman/book-format
  * (C) Christian Berkman 2024
@@ -23,7 +24,7 @@ if (! function_exists('formatAsTitle')) {
         $output = trim($value);
 
         // Replace all double whitespace characters with a single space
-        if($makeSingleSpaces){
+        if ($makeSingleSpaces) {
             $output = preg_replace('/(\s)+/', ' ', $output);
         }
 
