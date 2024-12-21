@@ -15,7 +15,7 @@ if (! function_exists('formatAsTitle')) {
      * @param array<string>|null $articles Array of articles
      * @return string|null
      */
-    function formatAsTitle(?string $value, ?array $articles = ['a', 'an', 'the'], bool $makeSingleSpaces = true): ?string
+    function formatAsTitle(?string $value, bool $makeSingleSpaces = true, ?array $articles = ['a', 'an', 'the']): ?string
     {
         if ($value === null) {
             return null;
