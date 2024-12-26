@@ -6,7 +6,7 @@
  * MIT License
  */
 
-if (! function_exists('formatAsTitle')) {
+if (! function_exists('sortableTitle')) {
     /**
      * Format string as title
      * e.g. "The Beautiful code" --> "Beautiful Code, The"
@@ -41,7 +41,7 @@ if (! function_exists('formatAsTitle')) {
     }
 }
 
-if (! function_exists('formatAsAuthor')) {
+if (! function_exists('sortableAuthor')) {
     /**
      * * Format as author
      * Examples:
