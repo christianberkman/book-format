@@ -28,13 +28,14 @@ class SortableTitleTest extends TestCase
     public function testCustomArticles()
     {
         $customArticles = ['de', 'het', 'een'];
+        $articles = implode('|', $customArticles);
         $testTitle = 'is a custom article';
 
         foreach ($customArticles as $customArticle) {
             $value = "{$customArticle} {$testTitle}";
             $expected = ucwords($testTitle) .', '. ucfirst($customArticle);
 
-            $this->assertSame($expected, sortableTitle($value, true, $customArticles), "Value: {$value}");
+            $this->assertSame($expected, sortableTitle($value, true, $articles), "Value: {$value}");
         }
     }
 

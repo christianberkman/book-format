@@ -15,7 +15,7 @@ if (! function_exists('formatAsTitle')) {
      * @param array<string>|null $articles Array of articles
      * @return string|null
      */
-    function sortableTitle(?string $value, bool $makeSingleSpaces = true, ?array $articles = ['a', 'an', 'the']): ?string
+    function sortableTitle(?string $value, bool $makeSingleSpaces = true, ?string $articles = 'a|an|the'): ?string
     {
         if ($value === null) {
             return null;
@@ -29,8 +29,7 @@ if (! function_exists('formatAsTitle')) {
         }
 
         // Move the article to the end of the string
-        $articlePattern = implode('|', $articles);
-        $pattern = "/^({$articlePattern})\s(.*)/i";
+        $pattern = "/^({$articles})\s(.*)/i";
         $match   = preg_match($pattern, $output, $matches);
         if ($match) {
             $output = ucwords($matches[2]) . ', ' . ucfirst($matches[1]);
