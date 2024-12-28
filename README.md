@@ -1,4 +1,4 @@
-# book-format
+# Sortable Book
 Make the title and author sortable for use in a library inventory by moving the article and initials to the end of the string.
 
 This package contains does not contain a class but two helper functions `sortableAuthor()` and `sortableTitle()`.sw
@@ -6,13 +6,13 @@ This package contains does not contain a class but two helper functions `sortabl
 ## Installation
 ### Via Composer
 ```bash
-composer require chhristianberkman/bookformat
+composer require chhristianberkman/sortable-book
 ```
-The file `book-format.php` will be autoloaded.
+The file `sortable-book.php` will be autoloaded.
 
 ### Manually
 ```php
-require('src/book-format.php');
+require('src/sortable-book.php');
 ```
 
 ## Usage

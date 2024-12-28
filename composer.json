@@ -1,5 +1,5 @@
 {
-    "name": "christianberkman/book-format",
+    "name": "christianberkman/sortable-book",
     "description": "Make the title and author sortable for use in a library inventory by moving the article and initials to the end of the string",
     "type": "library",
     "require-dev": {
@@ -16,7 +16,7 @@
     ],
     "require": {},
     "autoload": {
-        "files": ["src/book-format.php"]
+        "files": ["src/sortable-book.php"]
     },
     "scripts": {
         "cs-fix": "vendor/bin/php-cs-fixer fix .",

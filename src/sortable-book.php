@@ -1,7 +1,7 @@
 <?php
 
 /**
- * christianberkman/book-format
+ * christianberkman/sortable-book
  * (C) Christian Berkman 2024
  * MIT License
  */
