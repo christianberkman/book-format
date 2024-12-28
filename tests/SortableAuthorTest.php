@@ -30,7 +30,7 @@ class SortableAuthorTest extends TestCase
         $values = ['Lewis, C. S.', 'C. S. Lewis', 'c s lewis', 'lewis  c  s', 'c  s lewis ', 'C.S. Lewis'];
 
         foreach ($values as $value) {
-            $this->assertSame('Lewis, C. S.', sortableAuthor($value), "Value: {$value}");
+            $this->assertSame('Lewis, C.S.', sortableAuthor($value), "Value: {$value}");
         }
     }
 
@@ -40,9 +40,19 @@ class SortableAuthorTest extends TestCase
         $values = ['Berkman-Schinnell, K.M.', 'berkman-schinnell k m', 'k m berkman-Schinnell'];
 
         foreach ($values as $value) {
-            $this->assertSame('Berkman-Schinnell, K. M.', sortableAuthor($value), "Value: {$value}");
+            $this->assertSame('Berkman-Schinnell, K.M.', sortableAuthor($value), "Value: {$value}");
         }
 
+    }
+
+    public function testApostrophe()
+    {
+        // O'Neill
+        $this->assertSame("O'Neill", sortableAuthor("O'Neill"));
+
+        // O'Neill, L'
+        $this->assertSame("O'Neill, L.", sortableAuthor("O'Neill L"));
+        $this->assertSame("O'Neill, L.", sortableAuthor("L O'Neill"));
     }
 
 }
