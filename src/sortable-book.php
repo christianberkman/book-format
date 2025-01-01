@@ -32,7 +32,7 @@ if (! function_exists('sortableTitle')) {
         $pattern = "/^({$articles})\s(.*)/i";
         $match   = preg_match($pattern, $output, $matches);
         if ($match) {
-            $output = ucwords($matches[2]) . ', ' . ucfirst($matches[1]);
+            $output = ucwords($matches[2]) . ', ' . ucfirst(strtolower($matches[1]));
         } else {
             $output = ucwords($output);
         }
@@ -61,19 +61,19 @@ if (! function_exists('sortableAuthor')) {
 
         $output = trim($value);
 
-        
+
         // Add space after comma
         $output = preg_replace('/,([a-zA-Z])/', ', $1', $output);
-    
+
         // Capitalize first in every word
         $output = ucwords($output, ' -/');
-        
+
         // Make initials
         $output = preg_replace('/(\b([A-Z])([\. ]|$))/', '$2.', $output);
 
         // Remove speaces between initials
         $output = preg_replace('/([A-Z]\.) /', '$1', $output);
-        
+
         // Remove double spaces
         $output = preg_replace('/(\s)+/', ' ', $output);
 
