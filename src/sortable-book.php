@@ -86,6 +86,9 @@ if (! function_exists('sortableAuthor')) {
         // Remove double comma
         $output = preg_replace('/,,/', ',', $output);
 
+	// Remove double period
+	$output = preg_replace('/\.\.', '.', $output);
+
         return trim($output);
     }
 }
